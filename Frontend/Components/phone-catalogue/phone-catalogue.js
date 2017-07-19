@@ -1,10 +1,6 @@
-/**
- * Created by korsar on 13.07.2017.
- */
-
 'use strict';
 
-class PhoneCatalogue {
+export default class PhoneCatalogue {
 	constructor(options) {
 		this._el = options.el;
 		this._phones = options.phones;

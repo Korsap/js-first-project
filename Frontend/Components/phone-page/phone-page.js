@@ -1,9 +1,8 @@
-/**
- * Created by korsar on 13.07.2017.
- */
 'use strict';
 
-class PhonePage {
+import PhoneCatalogue from '../phone-catalogue/phone-catalogue.js';
+
+export default class PhonePage {
 	constructor(options) {
 		this._el = options.el;
 
