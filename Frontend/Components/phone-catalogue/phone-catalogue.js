@@ -5,7 +5,7 @@ export default class PhoneCatalogue {
 		this._el = options.el;
 		this._phones = options.phones;
 
-		const template = document.getElementById('phone-catalogue-template').innerHTML;
+		const template = require('raw-loader!./template.html');
 		this._compiledTemplate = _.template(template);
 
 		this._render();

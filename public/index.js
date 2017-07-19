@@ -270,7 +270,7 @@ class PhoneCatalogue {
 		this._el = options.el;
 		this._phones = options.phones;
 
-		const template = document.getElementById('phone-catalogue-template').innerHTML;
+		const template = __webpack_require__(3);
 		this._compiledTemplate = _.template(template);
 
 		this._render();
@@ -285,5 +285,12 @@ class PhoneCatalogue {
 /* harmony export (immutable) */ __webpack_exports__["a"] = PhoneCatalogue;
 
 
+/***/ }),
+/* 3 */
+/***/ (function(module, exports) {
+
+module.exports = "<ul class=\"phones\">\n\n\t<% phones.forEach((phone) => {%>\n\t<li class=\"thumbnail\">\n\t\t<a href=\"#!/phones/<%= phone.id %>\" class=\"thumb\">\n\t\t\t<img alt=\"Motorola XOOM™ with Wi-Fi\" src=\"<%= phone.imageUrl %>\">\n\t\t</a>\n\t\t<a href=\"#!/phones/<%= phone.id %>\"><%- phone.name %></a>\n\t\t<p><%= phone.snippet %></p>\n\t</li>\n\t<%});%>\n</ul>"
+
 /***/ })
 /******/ ]);
+//# sourceMappingURL=index.js.map
