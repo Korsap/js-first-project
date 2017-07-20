@@ -1,5 +1,5 @@
 const path = require('path');
-
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 module.exports = {
 	entry: './frontend/app.js',
 	output: {
@@ -27,5 +27,10 @@ module.exports = {
 				}
 			}
 		]
-	}
+	},
+	plugins: [
+		new UglifyJsPlugin({
+			sourceMap: true
+		})
+	]
 };
