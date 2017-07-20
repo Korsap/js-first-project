@@ -40,5 +40,12 @@ module.exports = {
 		new UglifyJsPlugin({
 			sourceMap: true
 		})
-	]
+	],
+
+	devServer: {
+		hot: true,
+		inline: true,
+		contentBase: path.resolve(__dirname, 'public'),
+		publicPath: '/'
+	}
 };
