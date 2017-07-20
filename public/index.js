@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 10);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -259,6 +259,87 @@ module.exports = exports['default'];
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
+// Thank's IE8 for his funny defineProperty
+module.exports = !__webpack_require__(8)(function(){
+  return Object.defineProperty({}, 'a', {get: function(){ return 7; }}).a != 7;
+});
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports) {
+
+module.exports = function(it){
+  return typeof it === 'object' ? it !== null : typeof it === 'function';
+};
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+
+exports.default = function (instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+};
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports) {
+
+// https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
+var global = module.exports = typeof window != 'undefined' && window.Math == Math
+  ? window : typeof self != 'undefined' && self.Math == Math ? self : Function('return this')();
+if(typeof __g == 'number')__g = global; // eslint-disable-line no-undef
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports) {
+
+var core = module.exports = {version: '2.4.0'};
+if(typeof __e == 'number')__e = core; // eslint-disable-line no-undef
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var anObject       = __webpack_require__(21)
+  , IE8_DOM_DEFINE = __webpack_require__(22)
+  , toPrimitive    = __webpack_require__(24)
+  , dP             = Object.defineProperty;
+
+exports.f = __webpack_require__(2) ? Object.defineProperty : function defineProperty(O, P, Attributes){
+  anObject(O);
+  P = toPrimitive(P, true);
+  anObject(Attributes);
+  if(IE8_DOM_DEFINE)try {
+    return dP(O, P, Attributes);
+  } catch(e){ /* empty */ }
+  if('get' in Attributes || 'set' in Attributes)throw TypeError('Accessors not supported!');
+  if('value' in Attributes)O[P] = Attributes.value;
+  return O;
+};
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports) {
+
+module.exports = function(exec){
+  try {
+    return !!exec();
+  } catch(e){
+    return true;
+  }
+};
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
 "use strict";
 
 
@@ -274,11 +355,11 @@ var _exception = __webpack_require__(1);
 
 var _exception2 = _interopRequireDefault(_exception);
 
-var _helpers = __webpack_require__(9);
+var _helpers = __webpack_require__(29);
 
-var _decorators = __webpack_require__(17);
+var _decorators = __webpack_require__(37);
 
-var _logger = __webpack_require__(19);
+var _logger = __webpack_require__(39);
 
 var _logger2 = _interopRequireDefault(_logger);
 
@@ -367,232 +448,475 @@ exports.logger = _logger2['default'];
 
 
 /***/ }),
-/* 3 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_phone_page_phone_page_js__ = __webpack_require__(4);
 
 
+var _phonePage = __webpack_require__(11);
 
+var _phonePage2 = _interopRequireDefault(_phonePage);
 
-new __WEBPACK_IMPORTED_MODULE_0__components_phone_page_phone_page_js__["a" /* default */]({
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+new _phonePage2.default({
 	el: document.querySelector('[data-component="phone-page"]')
 });
 
 /***/ }),
-/* 4 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__phone_catalogue_phone_catalogue_js__ = __webpack_require__(5);
 
 
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _classCallCheck2 = __webpack_require__(4);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _phoneCatalogue = __webpack_require__(12);
+
+var _phoneCatalogue2 = _interopRequireDefault(_phoneCatalogue);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var PhonePage = function PhonePage(options) {
+	(0, _classCallCheck3.default)(this, PhonePage);
+
+	this._el = options.el;
+
+	this._catalogue = new _phoneCatalogue2.default({
+		el: this._el.querySelector('[data-component="phone-catalogue"]'),
+		phones: phonesFromServer
+	});
+};
+
+exports.default = PhonePage;
 
 
-class PhonePage {
-	constructor(options) {
-		this._el = options.el;
-
-		this._catalogue = new __WEBPACK_IMPORTED_MODULE_0__phone_catalogue_phone_catalogue_js__["a" /* default */]({
-			el: this._el.querySelector('[data-component="phone-catalogue"]'),
-			phones: phonesFromServer
-		});
-	}
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = PhonePage;
-
-
-const phonesFromServer = [
-	{
-		"age": 0,
-		"id": "motorola-xoom-with-wi-fi",
-		"imageUrl": "img/phones/motorola-xoom-with-wi-fi.0.jpg",
-		"name": "Motorola XOOM\u2122 with Wi-Fi",
-		"snippet": "The Next, Next Generation\r\n\r\nExperience the future with Motorola XOOM with Wi-Fi, the world's first tablet powered by Android 3.0 (Honeycomb)."
-	},
-	{
-		"age": 1,
-		"id": "motorola-xoom",
-		"imageUrl": "img/phones/motorola-xoom.0.jpg",
-		"name": "MOTOROLA XOOM\u2122",
-		"snippet": "The Next, Next Generation\n\nExperience the future with MOTOROLA XOOM, the world's first tablet powered by Android 3.0 (Honeycomb)."
-	},
-	{
-		"age": 2,
-		"carrier": "AT&T",
-		"id": "motorola-atrix-4g",
-		"imageUrl": "img/phones/motorola-atrix-4g.0.jpg",
-		"name": "MOTOROLA ATRIX\u2122 4G",
-		"snippet": "MOTOROLA ATRIX 4G the world's most powerful smartphone."
-	},
-	{
-		"age": 3,
-		"id": "dell-streak-7",
-		"imageUrl": "img/phones/dell-streak-7.0.jpg",
-		"name": "Dell Streak 7",
-		"snippet": "Introducing Dell\u2122 Streak 7. Share photos, videos and movies together. It\u2019s small enough to carry around, big enough to gather around."
-	},
-	{
-		"age": 4,
-		"carrier": "Cellular South",
-		"id": "samsung-gem",
-		"imageUrl": "img/phones/samsung-gem.0.jpg",
-		"name": "Samsung Gem\u2122",
-		"snippet": "The Samsung Gem\u2122 brings you everything that you would expect and more from a touch display smart phone \u2013 more apps, more features and a more affordable price."
-	},
-	{
-		"age": 5,
-		"carrier": "Dell",
-		"id": "dell-venue",
-		"imageUrl": "img/phones/dell-venue.0.jpg",
-		"name": "Dell Venue",
-		"snippet": "The Dell Venue; Your Personal Express Lane to Everything"
-	},
-	{
-		"age": 6,
-		"carrier": "Best Buy",
-		"id": "nexus-s",
-		"imageUrl": "img/phones/nexus-s.0.jpg",
-		"name": "Nexus S",
-		"snippet": "Fast just got faster with Nexus S. A pure Google experience, Nexus S is the first phone to run Gingerbread (Android 2.3), the fastest version of Android yet."
-	},
-	{
-		"age": 7,
-		"carrier": "Cellular South",
-		"id": "lg-axis",
-		"imageUrl": "img/phones/lg-axis.0.jpg",
-		"name": "LG Axis",
-		"snippet": "Android Powered, Google Maps Navigation, 5 Customizable Home Screens"
-	},
-	{
-		"age": 8,
-		"id": "samsung-galaxy-tab",
-		"imageUrl": "img/phones/samsung-galaxy-tab.0.jpg",
-		"name": "Samsung Galaxy Tab\u2122",
-		"snippet": "Feel Free to Tab\u2122. The Samsung Galaxy Tab\u2122 brings you an ultra-mobile entertainment experience through its 7\u201d display, high-power processor and Adobe\u00ae Flash\u00ae Player compatibility."
-	},
-	{
-		"age": 9,
-		"carrier": "Cellular South",
-		"id": "samsung-showcase-a-galaxy-s-phone",
-		"imageUrl": "img/phones/samsung-showcase-a-galaxy-s-phone.0.jpg",
-		"name": "Samsung Showcase\u2122 a Galaxy S\u2122 phone",
-		"snippet": "The Samsung Showcase\u2122 delivers a cinema quality experience like you\u2019ve never seen before. Its innovative 4\u201d touch display technology provides rich picture brilliance, even outdoors"
-	},
-	{
-		"age": 10,
-		"carrier": "Verizon",
-		"id": "droid-2-global-by-motorola",
-		"imageUrl": "img/phones/droid-2-global-by-motorola.0.jpg",
-		"name": "DROID\u2122 2 Global by Motorola",
-		"snippet": "The first smartphone with a 1.2 GHz processor and global capabilities."
-	},
-	{
-		"age": 11,
-		"carrier": "Verizon",
-		"id": "droid-pro-by-motorola",
-		"imageUrl": "img/phones/droid-pro-by-motorola.0.jpg",
-		"name": "DROID\u2122 Pro by Motorola",
-		"snippet": "The next generation of DOES."
-	},
-	{
-		"age": 12,
-		"carrier": "AT&T",
-		"id": "motorola-bravo-with-motoblur",
-		"imageUrl": "img/phones/motorola-bravo-with-motoblur.0.jpg",
-		"name": "MOTOROLA BRAVO\u2122 with MOTOBLUR\u2122",
-		"snippet": "An experience to cheer about."
-	},
-	{
-		"age": 13,
-		"carrier": "T-Mobile",
-		"id": "motorola-defy-with-motoblur",
-		"imageUrl": "img/phones/motorola-defy-with-motoblur.0.jpg",
-		"name": "Motorola DEFY\u2122 with MOTOBLUR\u2122",
-		"snippet": "Are you ready for everything life throws your way?"
-	},
-	{
-		"age": 14,
-		"carrier": "T-Mobile",
-		"id": "t-mobile-mytouch-4g",
-		"imageUrl": "img/phones/t-mobile-mytouch-4g.0.jpg",
-		"name": "T-Mobile myTouch 4G",
-		"snippet": "The T-Mobile myTouch 4G is a premium smartphone designed to deliver blazing fast 4G speeds so that you can video chat from practically anywhere, with or without Wi-Fi."
-	},
-	{
-		"age": 15,
-		"carrier": "US Cellular",
-		"id": "samsung-mesmerize-a-galaxy-s-phone",
-		"imageUrl": "img/phones/samsung-mesmerize-a-galaxy-s-phone.0.jpg",
-		"name": "Samsung Mesmerize\u2122 a Galaxy S\u2122 phone",
-		"snippet": "The Samsung Mesmerize\u2122 delivers a cinema quality experience like you\u2019ve never seen before. Its innovative 4\u201d touch display technology provides rich picture brilliance,even outdoors"
-	},
-	{
-		"age": 16,
-		"carrier": "Sprint",
-		"id": "sanyo-zio",
-		"imageUrl": "img/phones/sanyo-zio.0.jpg",
-		"name": "SANYO ZIO",
-		"snippet": "The Sanyo Zio by Kyocera is an Android smartphone with a combination of ultra-sleek styling, strong performance and unprecedented value."
-	},
-	{
-		"age": 17,
-		"id": "samsung-transform",
-		"imageUrl": "img/phones/samsung-transform.0.jpg",
-		"name": "Samsung Transform\u2122",
-		"snippet": "The Samsung Transform\u2122 brings you a fun way to customize your Android powered touch screen phone to just the way you like it through your favorite themed \u201cSprint ID Service Pack\u201d."
-	},
-	{
-		"age": 18,
-		"id": "t-mobile-g2",
-		"imageUrl": "img/phones/t-mobile-g2.0.jpg",
-		"name": "T-Mobile G2",
-		"snippet": "The T-Mobile G2 with Google is the first smartphone built for 4G speeds on T-Mobile's new network. Get the information you need, faster than you ever thought possible."
-	},
-	{
-		"age": 19,
-		"id": "motorola-charm-with-motoblur",
-		"imageUrl": "img/phones/motorola-charm-with-motoblur.0.jpg",
-		"name": "Motorola CHARM\u2122 with MOTOBLUR\u2122",
-		"snippet": "Motorola CHARM fits easily in your pocket or palm.  Includes MOTOBLUR service."
-	}
-];
-
+var phonesFromServer = [{
+	"age": 0,
+	"id": "motorola-xoom-with-wi-fi",
+	"imageUrl": "img/phones/motorola-xoom-with-wi-fi.0.jpg",
+	"name": 'Motorola XOOM\u2122 with Wi-Fi',
+	"snippet": "The Next, Next Generation\r\n\r\nExperience the future with Motorola XOOM with Wi-Fi, the world's first tablet powered by Android 3.0 (Honeycomb)."
+}, {
+	"age": 1,
+	"id": "motorola-xoom",
+	"imageUrl": "img/phones/motorola-xoom.0.jpg",
+	"name": 'MOTOROLA XOOM\u2122',
+	"snippet": "The Next, Next Generation\n\nExperience the future with MOTOROLA XOOM, the world's first tablet powered by Android 3.0 (Honeycomb)."
+}, {
+	"age": 2,
+	"carrier": "AT&T",
+	"id": "motorola-atrix-4g",
+	"imageUrl": "img/phones/motorola-atrix-4g.0.jpg",
+	"name": 'MOTOROLA ATRIX\u2122 4G',
+	"snippet": "MOTOROLA ATRIX 4G the world's most powerful smartphone."
+}, {
+	"age": 3,
+	"id": "dell-streak-7",
+	"imageUrl": "img/phones/dell-streak-7.0.jpg",
+	"name": "Dell Streak 7",
+	"snippet": 'Introducing Dell\u2122 Streak 7. Share photos, videos and movies together. It\u2019s small enough to carry around, big enough to gather around.'
+}, {
+	"age": 4,
+	"carrier": "Cellular South",
+	"id": "samsung-gem",
+	"imageUrl": "img/phones/samsung-gem.0.jpg",
+	"name": 'Samsung Gem\u2122',
+	"snippet": 'The Samsung Gem\u2122 brings you everything that you would expect and more from a touch display smart phone \u2013 more apps, more features and a more affordable price.'
+}, {
+	"age": 5,
+	"carrier": "Dell",
+	"id": "dell-venue",
+	"imageUrl": "img/phones/dell-venue.0.jpg",
+	"name": "Dell Venue",
+	"snippet": "The Dell Venue; Your Personal Express Lane to Everything"
+}, {
+	"age": 6,
+	"carrier": "Best Buy",
+	"id": "nexus-s",
+	"imageUrl": "img/phones/nexus-s.0.jpg",
+	"name": "Nexus S",
+	"snippet": "Fast just got faster with Nexus S. A pure Google experience, Nexus S is the first phone to run Gingerbread (Android 2.3), the fastest version of Android yet."
+}, {
+	"age": 7,
+	"carrier": "Cellular South",
+	"id": "lg-axis",
+	"imageUrl": "img/phones/lg-axis.0.jpg",
+	"name": "LG Axis",
+	"snippet": "Android Powered, Google Maps Navigation, 5 Customizable Home Screens"
+}, {
+	"age": 8,
+	"id": "samsung-galaxy-tab",
+	"imageUrl": "img/phones/samsung-galaxy-tab.0.jpg",
+	"name": 'Samsung Galaxy Tab\u2122',
+	"snippet": 'Feel Free to Tab\u2122. The Samsung Galaxy Tab\u2122 brings you an ultra-mobile entertainment experience through its 7\u201D display, high-power processor and Adobe\xAE Flash\xAE Player compatibility.'
+}, {
+	"age": 9,
+	"carrier": "Cellular South",
+	"id": "samsung-showcase-a-galaxy-s-phone",
+	"imageUrl": "img/phones/samsung-showcase-a-galaxy-s-phone.0.jpg",
+	"name": 'Samsung Showcase\u2122 a Galaxy S\u2122 phone',
+	"snippet": 'The Samsung Showcase\u2122 delivers a cinema quality experience like you\u2019ve never seen before. Its innovative 4\u201D touch display technology provides rich picture brilliance, even outdoors'
+}, {
+	"age": 10,
+	"carrier": "Verizon",
+	"id": "droid-2-global-by-motorola",
+	"imageUrl": "img/phones/droid-2-global-by-motorola.0.jpg",
+	"name": 'DROID\u2122 2 Global by Motorola',
+	"snippet": "The first smartphone with a 1.2 GHz processor and global capabilities."
+}, {
+	"age": 11,
+	"carrier": "Verizon",
+	"id": "droid-pro-by-motorola",
+	"imageUrl": "img/phones/droid-pro-by-motorola.0.jpg",
+	"name": 'DROID\u2122 Pro by Motorola',
+	"snippet": "The next generation of DOES."
+}, {
+	"age": 12,
+	"carrier": "AT&T",
+	"id": "motorola-bravo-with-motoblur",
+	"imageUrl": "img/phones/motorola-bravo-with-motoblur.0.jpg",
+	"name": 'MOTOROLA BRAVO\u2122 with MOTOBLUR\u2122',
+	"snippet": "An experience to cheer about."
+}, {
+	"age": 13,
+	"carrier": "T-Mobile",
+	"id": "motorola-defy-with-motoblur",
+	"imageUrl": "img/phones/motorola-defy-with-motoblur.0.jpg",
+	"name": 'Motorola DEFY\u2122 with MOTOBLUR\u2122',
+	"snippet": "Are you ready for everything life throws your way?"
+}, {
+	"age": 14,
+	"carrier": "T-Mobile",
+	"id": "t-mobile-mytouch-4g",
+	"imageUrl": "img/phones/t-mobile-mytouch-4g.0.jpg",
+	"name": "T-Mobile myTouch 4G",
+	"snippet": "The T-Mobile myTouch 4G is a premium smartphone designed to deliver blazing fast 4G speeds so that you can video chat from practically anywhere, with or without Wi-Fi."
+}, {
+	"age": 15,
+	"carrier": "US Cellular",
+	"id": "samsung-mesmerize-a-galaxy-s-phone",
+	"imageUrl": "img/phones/samsung-mesmerize-a-galaxy-s-phone.0.jpg",
+	"name": 'Samsung Mesmerize\u2122 a Galaxy S\u2122 phone',
+	"snippet": 'The Samsung Mesmerize\u2122 delivers a cinema quality experience like you\u2019ve never seen before. Its innovative 4\u201D touch display technology provides rich picture brilliance,even outdoors'
+}, {
+	"age": 16,
+	"carrier": "Sprint",
+	"id": "sanyo-zio",
+	"imageUrl": "img/phones/sanyo-zio.0.jpg",
+	"name": "SANYO ZIO",
+	"snippet": "The Sanyo Zio by Kyocera is an Android smartphone with a combination of ultra-sleek styling, strong performance and unprecedented value."
+}, {
+	"age": 17,
+	"id": "samsung-transform",
+	"imageUrl": "img/phones/samsung-transform.0.jpg",
+	"name": 'Samsung Transform\u2122',
+	"snippet": 'The Samsung Transform\u2122 brings you a fun way to customize your Android powered touch screen phone to just the way you like it through your favorite themed \u201CSprint ID Service Pack\u201D.'
+}, {
+	"age": 18,
+	"id": "t-mobile-g2",
+	"imageUrl": "img/phones/t-mobile-g2.0.jpg",
+	"name": "T-Mobile G2",
+	"snippet": "The T-Mobile G2 with Google is the first smartphone built for 4G speeds on T-Mobile's new network. Get the information you need, faster than you ever thought possible."
+}, {
+	"age": 19,
+	"id": "motorola-charm-with-motoblur",
+	"imageUrl": "img/phones/motorola-charm-with-motoblur.0.jpg",
+	"name": 'Motorola CHARM\u2122 with MOTOBLUR\u2122',
+	"snippet": "Motorola CHARM fits easily in your pocket or palm.  Includes MOTOBLUR service."
+}];
 
 /***/ }),
-/* 5 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__template_hbs__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__template_hbs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__template_hbs__);
 
 
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
 
-class PhoneCatalogue {
-	constructor(options) {
+var _classCallCheck2 = __webpack_require__(4);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(13);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _template = __webpack_require__(26);
+
+var _template2 = _interopRequireDefault(_template);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var PhoneCatalogue = function () {
+	function PhoneCatalogue(options) {
+		(0, _classCallCheck3.default)(this, PhoneCatalogue);
+
 		this._el = options.el;
 		this._phones = options.phones;
 
 		this._render();
 	}
 
-	_render() {
-		this._el.innerHTML = __WEBPACK_IMPORTED_MODULE_0__template_hbs___default()({
-			phones: this._phones
-		});
-	}
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = PhoneCatalogue;
+	(0, _createClass3.default)(PhoneCatalogue, [{
+		key: '_render',
+		value: function _render() {
+			this._el.innerHTML = (0, _template2.default)({
+				phones: this._phones
+			});
+		}
+	}]);
+	return PhoneCatalogue;
+}();
 
+exports.default = PhoneCatalogue;
 
 /***/ }),
-/* 6 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Handlebars = __webpack_require__(7);
+"use strict";
+
+
+exports.__esModule = true;
+
+var _defineProperty = __webpack_require__(14);
+
+var _defineProperty2 = _interopRequireDefault(_defineProperty);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];
+      descriptor.enumerable = descriptor.enumerable || false;
+      descriptor.configurable = true;
+      if ("value" in descriptor) descriptor.writable = true;
+      (0, _defineProperty2.default)(target, descriptor.key, descriptor);
+    }
+  }
+
+  return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);
+    if (staticProps) defineProperties(Constructor, staticProps);
+    return Constructor;
+  };
+}();
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = { "default": __webpack_require__(15), __esModule: true };
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(16);
+var $Object = __webpack_require__(6).Object;
+module.exports = function defineProperty(it, key, desc){
+  return $Object.defineProperty(it, key, desc);
+};
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var $export = __webpack_require__(17);
+// 19.1.2.4 / 15.2.3.6 Object.defineProperty(O, P, Attributes)
+$export($export.S + $export.F * !__webpack_require__(2), 'Object', {defineProperty: __webpack_require__(7).f});
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var global    = __webpack_require__(5)
+  , core      = __webpack_require__(6)
+  , ctx       = __webpack_require__(18)
+  , hide      = __webpack_require__(20)
+  , PROTOTYPE = 'prototype';
+
+var $export = function(type, name, source){
+  var IS_FORCED = type & $export.F
+    , IS_GLOBAL = type & $export.G
+    , IS_STATIC = type & $export.S
+    , IS_PROTO  = type & $export.P
+    , IS_BIND   = type & $export.B
+    , IS_WRAP   = type & $export.W
+    , exports   = IS_GLOBAL ? core : core[name] || (core[name] = {})
+    , expProto  = exports[PROTOTYPE]
+    , target    = IS_GLOBAL ? global : IS_STATIC ? global[name] : (global[name] || {})[PROTOTYPE]
+    , key, own, out;
+  if(IS_GLOBAL)source = name;
+  for(key in source){
+    // contains in native
+    own = !IS_FORCED && target && target[key] !== undefined;
+    if(own && key in exports)continue;
+    // export native or passed
+    out = own ? target[key] : source[key];
+    // prevent global pollution for namespaces
+    exports[key] = IS_GLOBAL && typeof target[key] != 'function' ? source[key]
+    // bind timers to global for call from export context
+    : IS_BIND && own ? ctx(out, global)
+    // wrap global constructors for prevent change them in library
+    : IS_WRAP && target[key] == out ? (function(C){
+      var F = function(a, b, c){
+        if(this instanceof C){
+          switch(arguments.length){
+            case 0: return new C;
+            case 1: return new C(a);
+            case 2: return new C(a, b);
+          } return new C(a, b, c);
+        } return C.apply(this, arguments);
+      };
+      F[PROTOTYPE] = C[PROTOTYPE];
+      return F;
+    // make static versions for prototype methods
+    })(out) : IS_PROTO && typeof out == 'function' ? ctx(Function.call, out) : out;
+    // export proto methods to core.%CONSTRUCTOR%.methods.%NAME%
+    if(IS_PROTO){
+      (exports.virtual || (exports.virtual = {}))[key] = out;
+      // export proto methods to core.%CONSTRUCTOR%.prototype.%NAME%
+      if(type & $export.R && expProto && !expProto[key])hide(expProto, key, out);
+    }
+  }
+};
+// type bitmap
+$export.F = 1;   // forced
+$export.G = 2;   // global
+$export.S = 4;   // static
+$export.P = 8;   // proto
+$export.B = 16;  // bind
+$export.W = 32;  // wrap
+$export.U = 64;  // safe
+$export.R = 128; // real proto method for `library` 
+module.exports = $export;
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// optional / simple context binding
+var aFunction = __webpack_require__(19);
+module.exports = function(fn, that, length){
+  aFunction(fn);
+  if(that === undefined)return fn;
+  switch(length){
+    case 1: return function(a){
+      return fn.call(that, a);
+    };
+    case 2: return function(a, b){
+      return fn.call(that, a, b);
+    };
+    case 3: return function(a, b, c){
+      return fn.call(that, a, b, c);
+    };
+  }
+  return function(/* ...args */){
+    return fn.apply(that, arguments);
+  };
+};
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports) {
+
+module.exports = function(it){
+  if(typeof it != 'function')throw TypeError(it + ' is not a function!');
+  return it;
+};
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var dP         = __webpack_require__(7)
+  , createDesc = __webpack_require__(25);
+module.exports = __webpack_require__(2) ? function(object, key, value){
+  return dP.f(object, key, createDesc(1, value));
+} : function(object, key, value){
+  object[key] = value;
+  return object;
+};
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isObject = __webpack_require__(3);
+module.exports = function(it){
+  if(!isObject(it))throw TypeError(it + ' is not an object!');
+  return it;
+};
+
+/***/ }),
+/* 22 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = !__webpack_require__(2) && !__webpack_require__(8)(function(){
+  return Object.defineProperty(__webpack_require__(23)('div'), 'a', {get: function(){ return 7; }}).a != 7;
+});
+
+/***/ }),
+/* 23 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isObject = __webpack_require__(3)
+  , document = __webpack_require__(5).document
+  // in old IE typeof document.createElement is 'object'
+  , is = isObject(document) && isObject(document.createElement);
+module.exports = function(it){
+  return is ? document.createElement(it) : {};
+};
+
+/***/ }),
+/* 24 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 7.1.1 ToPrimitive(input [, PreferredType])
+var isObject = __webpack_require__(3);
+// instead of the ES6 spec version, we didn't implement @@toPrimitive case
+// and the second argument - flag - preferred type is a string
+module.exports = function(it, S){
+  if(!isObject(it))return it;
+  var fn, val;
+  if(S && typeof (fn = it.toString) == 'function' && !isObject(val = fn.call(it)))return val;
+  if(typeof (fn = it.valueOf) == 'function' && !isObject(val = fn.call(it)))return val;
+  if(!S && typeof (fn = it.toString) == 'function' && !isObject(val = fn.call(it)))return val;
+  throw TypeError("Can't convert object to primitive value");
+};
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports) {
+
+module.exports = function(bitmap, value){
+  return {
+    enumerable  : !(bitmap & 1),
+    configurable: !(bitmap & 2),
+    writable    : !(bitmap & 4),
+    value       : value
+  };
+};
+
+/***/ }),
+/* 26 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Handlebars = __webpack_require__(27);
 function __default(obj) { return obj && (obj.__esModule ? obj["default"] : obj); }
 module.exports = (Handlebars["default"] || Handlebars).template({"1":function(container,depth0,helpers,partials,data,blockParams) {
     var stack1, alias1=container.lambda, alias2=container.escapeExpression;
@@ -619,16 +943,16 @@ module.exports = (Handlebars["default"] || Handlebars).template({"1":function(co
 },"useData":true,"useBlockParams":true});
 
 /***/ }),
-/* 7 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Create a simple path alias to allow browserify to resolve
 // the runtime on a supported path.
-module.exports = __webpack_require__(8)['default'];
+module.exports = __webpack_require__(28)['default'];
 
 
 /***/ }),
-/* 8 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -643,14 +967,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'd
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
 
-var _handlebarsBase = __webpack_require__(2);
+var _handlebarsBase = __webpack_require__(9);
 
 var base = _interopRequireWildcard(_handlebarsBase);
 
 // Each of these augment the Handlebars object. No need to setup here.
 // (This is done to easily share code between commonjs and browse envs)
 
-var _handlebarsSafeString = __webpack_require__(20);
+var _handlebarsSafeString = __webpack_require__(40);
 
 var _handlebarsSafeString2 = _interopRequireDefault(_handlebarsSafeString);
 
@@ -662,11 +986,11 @@ var _handlebarsUtils = __webpack_require__(0);
 
 var Utils = _interopRequireWildcard(_handlebarsUtils);
 
-var _handlebarsRuntime = __webpack_require__(21);
+var _handlebarsRuntime = __webpack_require__(41);
 
 var runtime = _interopRequireWildcard(_handlebarsRuntime);
 
-var _handlebarsNoConflict = __webpack_require__(22);
+var _handlebarsNoConflict = __webpack_require__(42);
 
 var _handlebarsNoConflict2 = _interopRequireDefault(_handlebarsNoConflict);
 
@@ -701,7 +1025,7 @@ module.exports = exports['default'];
 
 
 /***/ }),
-/* 9 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -713,31 +1037,31 @@ exports.registerDefaultHelpers = registerDefaultHelpers;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-var _helpersBlockHelperMissing = __webpack_require__(10);
+var _helpersBlockHelperMissing = __webpack_require__(30);
 
 var _helpersBlockHelperMissing2 = _interopRequireDefault(_helpersBlockHelperMissing);
 
-var _helpersEach = __webpack_require__(11);
+var _helpersEach = __webpack_require__(31);
 
 var _helpersEach2 = _interopRequireDefault(_helpersEach);
 
-var _helpersHelperMissing = __webpack_require__(12);
+var _helpersHelperMissing = __webpack_require__(32);
 
 var _helpersHelperMissing2 = _interopRequireDefault(_helpersHelperMissing);
 
-var _helpersIf = __webpack_require__(13);
+var _helpersIf = __webpack_require__(33);
 
 var _helpersIf2 = _interopRequireDefault(_helpersIf);
 
-var _helpersLog = __webpack_require__(14);
+var _helpersLog = __webpack_require__(34);
 
 var _helpersLog2 = _interopRequireDefault(_helpersLog);
 
-var _helpersLookup = __webpack_require__(15);
+var _helpersLookup = __webpack_require__(35);
 
 var _helpersLookup2 = _interopRequireDefault(_helpersLookup);
 
-var _helpersWith = __webpack_require__(16);
+var _helpersWith = __webpack_require__(36);
 
 var _helpersWith2 = _interopRequireDefault(_helpersWith);
 
@@ -754,7 +1078,7 @@ function registerDefaultHelpers(instance) {
 
 
 /***/ }),
-/* 10 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -800,7 +1124,7 @@ module.exports = exports['default'];
 
 
 /***/ }),
-/* 11 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -901,7 +1225,7 @@ module.exports = exports['default'];
 
 
 /***/ }),
-/* 12 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -933,7 +1257,7 @@ module.exports = exports['default'];
 
 
 /***/ }),
-/* 13 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -969,7 +1293,7 @@ module.exports = exports['default'];
 
 
 /***/ }),
-/* 14 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1002,7 +1326,7 @@ module.exports = exports['default'];
 
 
 /***/ }),
-/* 15 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1021,7 +1345,7 @@ module.exports = exports['default'];
 
 
 /***/ }),
-/* 16 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1061,7 +1385,7 @@ module.exports = exports['default'];
 
 
 /***/ }),
-/* 17 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1073,7 +1397,7 @@ exports.registerDefaultDecorators = registerDefaultDecorators;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-var _decoratorsInline = __webpack_require__(18);
+var _decoratorsInline = __webpack_require__(38);
 
 var _decoratorsInline2 = _interopRequireDefault(_decoratorsInline);
 
@@ -1084,7 +1408,7 @@ function registerDefaultDecorators(instance) {
 
 
 /***/ }),
-/* 18 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1120,7 +1444,7 @@ module.exports = exports['default'];
 
 
 /***/ }),
-/* 19 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1174,7 +1498,7 @@ module.exports = exports['default'];
 
 
 /***/ }),
-/* 20 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1196,7 +1520,7 @@ module.exports = exports['default'];
 
 
 /***/ }),
-/* 21 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1225,7 +1549,7 @@ var _exception = __webpack_require__(1);
 
 var _exception2 = _interopRequireDefault(_exception);
 
-var _base = __webpack_require__(2);
+var _base = __webpack_require__(9);
 
 function checkRevision(compilerInfo) {
   var compilerRevision = compilerInfo && compilerInfo[0] || 1,
@@ -1510,7 +1834,7 @@ function executeDecorators(fn, prog, container, depths, data, blockParams) {
 
 
 /***/ }),
-/* 22 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1535,10 +1859,10 @@ exports['default'] = function (Handlebars) {
 module.exports = exports['default'];
 //# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uLy4uL2xpYi9oYW5kbGViYXJzL25vLWNvbmZsaWN0LmpzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7O3FCQUNlLFVBQVMsVUFBVSxFQUFFOztBQUVsQyxNQUFJLElBQUksR0FBRyxPQUFPLE1BQU0sS0FBSyxXQUFXLEdBQUcsTUFBTSxHQUFHLE1BQU07TUFDdEQsV0FBVyxHQUFHLElBQUksQ0FBQyxVQUFVLENBQUM7O0FBRWxDLFlBQVUsQ0FBQyxVQUFVLEdBQUcsWUFBVztBQUNqQyxRQUFJLElBQUksQ0FBQyxVQUFVLEtBQUssVUFBVSxFQUFFO0FBQ2xDLFVBQUksQ0FBQyxVQUFVLEdBQUcsV0FBVyxDQUFDO0tBQy9CO0FBQ0QsV0FBTyxVQUFVLENBQUM7R0FDbkIsQ0FBQztDQUNIIiwiZmlsZSI6Im5vLWNvbmZsaWN0LmpzIiwic291cmNlc0NvbnRlbnQiOlsiLyogZ2xvYmFsIHdpbmRvdyAqL1xuZXhwb3J0IGRlZmF1bHQgZnVuY3Rpb24oSGFuZGxlYmFycykge1xuICAvKiBpc3RhbmJ1bCBpZ25vcmUgbmV4dCAqL1xuICBsZXQgcm9vdCA9IHR5cGVvZiBnbG9iYWwgIT09ICd1bmRlZmluZWQnID8gZ2xvYmFsIDogd2luZG93LFxuICAgICAgJEhhbmRsZWJhcnMgPSByb290LkhhbmRsZWJhcnM7XG4gIC8qIGlzdGFuYnVsIGlnbm9yZSBuZXh0ICovXG4gIEhhbmRsZWJhcnMubm9Db25mbGljdCA9IGZ1bmN0aW9uKCkge1xuICAgIGlmIChyb290LkhhbmRsZWJhcnMgPT09IEhhbmRsZWJhcnMpIHtcbiAgICAgIHJvb3QuSGFuZGxlYmFycyA9ICRIYW5kbGViYXJzO1xuICAgIH1cbiAgICByZXR1cm4gSGFuZGxlYmFycztcbiAgfTtcbn1cbiJdfQ==
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(23)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(43)))
 
 /***/ }),
-/* 23 */
+/* 43 */
 /***/ (function(module, exports) {
 
 var g;
