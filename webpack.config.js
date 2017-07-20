@@ -7,5 +7,13 @@ module.exports = {
 		path: path.resolve(__dirname, 'public')
 	},
 	watch: true,
-	devtool: 'source-map'
+	devtool: 'source-map',
+	module: {
+		rules: [
+			{
+				test: /\.hbs$/,
+				loader: 'handlebars-loader'
+			}
+		]
+	}
 };
