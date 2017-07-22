@@ -16,10 +16,17 @@ export default class PhonePage {
 			el: this._el.querySelector('[data-component="phone-viewer"]'),
 		});
 
-/*		this._viewer.render( this.getPhoneFromServer() );
-		this._catalogue.hide();
-		this._viewer.show();*/
+		this._catalogue._el.addEventListener('phoneSelected', this._onPhoneSelected.bind(this));
+
 	}
+
+	_onPhoneSelected(event) {
+		let phoneDetails = this.getPhoneFromServer();
+		this._viewer.render(phoneDetails);
+		this._catalogue.hide();
+		this._viewer.show();
+	}
+
 	getPhoneFromServer() {
 		return phoneFromServer;
 	}
