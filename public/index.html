@@ -15,12 +15,12 @@
 				<div class="col-md-2">
 					<!--Sidebar content-->
 
-					<p>
+					<p data-component="filter">
 						Search:
 						<input>
 					</p>
 
-					<p>
+					<p data-component="sorter">
 						Sort by:
 						<select>
 							<option value="name">Alphabetical</option>
@@ -28,7 +28,7 @@
 						</select>
 					</p>
 
-					<div>
+					<div data-component="shopping-cart">
 						<h4>Shopping cart</h4>
 						<ul>
 							<li>1</li>
@@ -41,7 +41,8 @@
 				<div class="col-md-10">
 					<!--Body content-->
 					<div data-component="phone-catalogue"></div>
-					<div data-component="phone-details"></div>
+					<div data-component="phone-viewer"
+					     class="js-hidden"></div>
 				</div>
 			</div>
 		</div>

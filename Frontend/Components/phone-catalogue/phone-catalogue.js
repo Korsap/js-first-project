@@ -1,6 +1,6 @@
 'use strict';
-import compiledTemplate from './template.hbs';
 import './style.css';
+import compiledTemplate from './template.hbs';
 
 export default class PhoneCatalogue {
 	constructor(options) {
@@ -8,6 +8,10 @@ export default class PhoneCatalogue {
 		this._phones = options.phones;
 
 		this._render();
+	}
+
+	hide() {
+		this._el.classList.add('js-hidden');
 	}
 
 	_render() {
