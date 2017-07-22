@@ -16,9 +16,9 @@ export default class PhonePage {
 			el: this._el.querySelector('[data-component="phone-viewer"]'),
 		});
 
-		this._viewer.render( this.getPhoneFromServer() );
+/*		this._viewer.render( this.getPhoneFromServer() );
 		this._catalogue.hide();
-		this._viewer.show();
+		this._viewer.show();*/
 	}
 	getPhoneFromServer() {
 		return phoneFromServer;
