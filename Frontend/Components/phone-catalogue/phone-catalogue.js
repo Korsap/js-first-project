@@ -1,18 +1,17 @@
 'use strict';
 import './style.css';
 import compiledTemplate from './template.hbs';
+import Component from '../component';
 
-export default class PhoneCatalogue {
+export default class PhoneCatalogue extends Component{
 	constructor(options) {
-		this._el = options.el;
+		super(options.el);
+
 		this._phones = options.phones;
 
 		this._render();
-		this._el.addEventListener('click', this._onPhoneClick.bind(this));
-	}
 
-	hide() {
-		this._el.classList.add('js-hidden');
+		this._el.addEventListener('click', this._onPhoneClick.bind(this));
 	}
 
 	_render() {
@@ -28,8 +27,8 @@ export default class PhoneCatalogue {
 			return;
 		}
 
-		console.log(phoneElement.dataset.phoneId);
 		let customEvent = new CustomEvent('phoneSelected', {
+			bubbles: false,
 			detail: phoneElement.dataset.phoneId
 		});
 
