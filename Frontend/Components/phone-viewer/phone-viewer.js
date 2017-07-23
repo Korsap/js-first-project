@@ -19,10 +19,6 @@ export default class PhoneViewer extends Component{
 			return;
 		}
 
-		let customEvent = new CustomEvent('back', {
-			bubbles: false
-			});
-
-		this._el.dispatchEvent(customEvent);
+		this.trigger('back');
 	}
 }
