@@ -4,8 +4,8 @@ import Component from '../component';
 
 export default class PhoneViewer extends Component{
 	constructor(options) {
-		super(options.el)
-		this._el.addEventListener('click', this._onBackButtonClick.bind(this));
+		super(options.el);
+		this.on('click', this._onBackButtonClick.bind(this));
 	}
 
 	render(phoneDetails) {
