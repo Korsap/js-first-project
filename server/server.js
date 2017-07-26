@@ -5,13 +5,14 @@ let file = new static.Server('.', {
 });
 
 function accept(request, response) {
-	if (request.url.slice(0, 6) === '/data') {
-		setTimeout(() => {
-			file.serve(request, response);
-		}, 100);
-	} else {
+	if (!request.url.startsWith('/data')) {
 		file.serve(request, response);
+		return;
 	}
+
+	setTimeout(() => {
+		file.serve(request, response);
+	}, 5000);
 }
 
 http.createServer(accept).listen(3000);
