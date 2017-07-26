@@ -31,9 +31,20 @@ export default class PhonePage {
 	}
 
 	_onPhoneSelected(event) {
-		let phoneDetails = this.getPhoneFromServer();
+		let phoneId = event.detail;
+		//let phoneDetails = this.getPhoneFromServer();
+		let xhr = new XMLHttpRequest();
+		xhr.open('GET', `/data/phones/${phoneId}.json`, false);
+		xhr.send();
 
-		this._viewer.render(phoneDetails);
+		if (xhr.status != 200) {
+			alert( xhr.status + ': ' + xhr.statusText);
+			return;
+		}
+
+		let phone = JSON.parse(xhr.responseText);
+
+		this._viewer.render(phone);
 
 		this._catalogue.hide();
 		this._viewer.show();
@@ -44,9 +55,9 @@ export default class PhonePage {
 			this._catalogue.show();
 	}
 
-	getPhoneFromServer() {
+/*	getPhoneFromServer() {
 		return phoneFromServer;
-	}
+	}*/
 }
 
 
