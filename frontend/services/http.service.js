@@ -1,4 +1,7 @@
-const API_URL = '/data';
+import { API_URL } from '../../config';
+
+//const API_URL = '/data';
+
 export default class HTTPService {
 	static 	sendRequest(url, successCallback, method = 'GET') {
 		let xhr = new XMLHttpRequest();

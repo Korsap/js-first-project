@@ -6,6 +6,7 @@ let file = new static.Server('.', {
 
 function accept(request, response) {
 	if (!request.url.startsWith('/data')) {
+		request.url = '/public' + request.url;
 		file.serve(request, response);
 		return;
 	}
