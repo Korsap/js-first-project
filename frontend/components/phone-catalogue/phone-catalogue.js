@@ -26,7 +26,7 @@ export default class PhoneCatalogue extends Component{
 	}
 
 	_onPhoneClick(event) {
-		let phoneElement = event.target.closest('[data-element="phone"]')
+		let phoneElement = event.target.closest('[data-element="phone"]');
 
 		if (!phoneElement) {
 			return;

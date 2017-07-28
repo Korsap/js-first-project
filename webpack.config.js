@@ -15,7 +15,6 @@ module.exports = {
 				test: /\.hbs$/,
 				loader: 'handlebars-loader'
 			},
-
 			{
 				test: /\.js$/,
 				exclude: /node_modules/,
@@ -27,14 +26,13 @@ module.exports = {
 					}
 				}
 			},
-
 			{
 				test: /\.css$/,
 				use: [
 					{ loader: "style-loader" },
 					{ loader: "css-loader" }
 				]
-			}
+			},
 		]
 	},
 	plugins: [
@@ -42,7 +40,6 @@ module.exports = {
 			sourceMap: true
 		})
 	],
-
 	devServer: {
 		hot: true,
 		inline: true,

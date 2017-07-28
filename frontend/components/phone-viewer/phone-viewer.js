@@ -10,11 +10,14 @@ export default class PhoneViewer extends Component{
 		this.on('click', this._onAddButtonClick.bind(this));
 	}
 
-	render(phoneDetails) {
+	setPhone(phoneDetails) {
 		this._phone = phoneDetails;
-		this._el.innerHTML = compiledTemplate({
-			phone: phoneDetails
-		});
+
+		this._render();
+	}
+
+	_render() {
+		this._el.innerHTML = compiledTemplate( { phone: this._phone } );
 	}
 
 	_onBackButtonClick (event) {
@@ -30,6 +33,6 @@ export default class PhoneViewer extends Component{
 			return;
 		}
 
-		this.trigger('add', this._phone.id);
+		this.trigger('add', this._phone.name);
 	}
 }

@@ -12,7 +12,7 @@ function accept(request, response) {
 
 	setTimeout(() => {
 		file.serve(request, response);
-	}, 5000);
+	}, 1000);
 }
 
 http.createServer(accept).listen(3000);
