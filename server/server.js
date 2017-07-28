@@ -5,6 +5,7 @@ let file = new static.Server('.', {
 });
 
 function accept(request, response) {
+
 	if (!request.url.startsWith('/data')) {
 		request.url = '/public' + request.url;
 		file.serve(request, response);
@@ -12,8 +13,10 @@ function accept(request, response) {
 	}
 
 	setTimeout(() => {
+		response.setHeader("Access-Control-Allow-Origin", '*');
+
 		file.serve(request, response);
-	}, 1000);
+	}, 100);
 }
 
 http.createServer(accept).listen(3000);
